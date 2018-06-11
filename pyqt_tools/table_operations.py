@@ -1,5 +1,5 @@
-from QtCore import Qt
-from QtWidgets import QTableWidgetItem
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidgetItem
 
 
 def set_item(table, row, row_items):
