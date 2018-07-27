@@ -32,4 +32,4 @@ def build_plot(widget, title, ylabel, xlabel, yunit, xunit, curve_names):
 
         add_curves_to_plot(plot, curves)
 
-        return plot
+        return plot, curves
