@@ -1,4 +1,18 @@
+import numpy as np
+
 from .plots import Plot
+
+class Curve:
+
+    def __init__(self, c):
+        self._c = c
+
+    def append(self, x_val, y_val):
+        x, y = self._c.get_data()
+        x = np.append(x, x_val)
+        y = np.append(y, y_val)
+        self._c.set_data(x, y)
+
 
 def generate_styles(num_curves):
     from guiqwt.styles import style_generator
@@ -32,4 +46,6 @@ def build_plot(widget, title, ylabel, xlabel, yunit, xunit, curve_names):
 
         add_curves_to_plot(plot, curves)
 
-        return plot, curves
+        wrapped_curves = [Curve(c) for c in curves]
+
+        return plot, wrapped_curves
