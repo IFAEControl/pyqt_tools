@@ -8,14 +8,15 @@ def set_size_policy(widget, v_policy, h_policy):
 
 class Plot(QtWidgets.QWidget):
 
-    def __init__(self, main, title, ylabel, xlabel, yunit, xunit):
+    def __init__(self, main, title, ylabel, xlabel, yunit, xunit, itemlist=False, toolbar=False):
         super(Plot, self).__init__()
 
-        self._plot = CurveDialog(toolbar=True, wintitle=title,
+        self._plot = CurveDialog(toolbar=toolbar, wintitle=title,
                                  options=dict(ylabel=ylabel, yunit=yunit,
                                               xlabel=xlabel, xunit=xunit))
 
-        self._plot.get_itemlist_panel().show()
+        if itemlist:
+            self._plot.get_itemlist_panel().show()
 
         set_size_policy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
         set_size_policy(self._plot, QSizePolicy.Expanding, QSizePolicy.Expanding)
