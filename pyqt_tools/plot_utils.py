@@ -26,13 +26,13 @@ class Curve:
     def __init__(self, c):
         self._c = c
 
-    def append(self, x_val, y_val, show_last=-1):
-        if show_last == -1:
+    def append(self, x_val, y_val, last=-1):
+        if last == -1:
             x, y = self._c.get_data()
             x = np.append(x, x_val)
             y = np.append(y, y_val)
         else:
-            x, y = show_last(show_last, self._c)
+            x, y = show_last(last, self._c)
 
         self._c.set_data(x, y)
 
