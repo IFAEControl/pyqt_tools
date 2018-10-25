@@ -9,12 +9,10 @@ def show_last(num, curve):
     if num >= len(y):
         return x, y
 
-    x = list(reversed(x))
-    y = list(reversed(y))
     new_y = []
     new_x = []
 
-    for i in range(num):
+    for i in range(-num, 0):
         new_y.append(y[i])
         new_x.append(x[i])
 
@@ -27,14 +25,14 @@ class Curve:
         self._c = c
 
     def append(self, x_val, y_val, last=-1):
-        if last == -1:
-            x, y = self._c.get_data()
-            x = np.append(x, x_val)
-            y = np.append(y, y_val)
-        else:
-            x, y = show_last(last, self._c)
-
+        x, y = self._c.get_data()
+        x = np.append(x, x_val)
+        y = np.append(y, y_val)
         self._c.set_data(x, y)
+
+        if last != -1:
+            x, y = show_last(last, self._c)
+            self._c.set_data(x, y)
 
 
 def generate_styles(num_curves):
