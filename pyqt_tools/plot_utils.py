@@ -2,15 +2,38 @@ import numpy as np
 
 from .plots import Plot
 
+
+def show_last(num, curve):
+    x, y = curve.get_data()
+
+    if num >= len(y):
+        return x, y
+
+    x = list(reversed(x))
+    y = list(reversed(y))
+    new_y = []
+    new_x = []
+
+    for i in range(num):
+        new_y.append(y[i])
+        new_x.append(x[i])
+
+    return new_x, new_y
+
+
 class Curve:
 
     def __init__(self, c):
         self._c = c
 
-    def append(self, x_val, y_val):
-        x, y = self._c.get_data()
-        x = np.append(x, x_val)
-        y = np.append(y, y_val)
+    def append(self, x_val, y_val, show_last=-1):
+        if show_last == -1:
+            x, y = self._c.get_data()
+            x = np.append(x, x_val)
+            y = np.append(y, y_val)
+        else:
+            x, y = show_last(show_last, self._c)
+
         self._c.set_data(x, y)
 
 
@@ -19,6 +42,7 @@ def generate_styles(num_curves):
 
     styles = style_generator()
     return [next(styles) for _ in range(num_curves)]
+
 
 def make_curves(styles, names):
     from guiqwt.builder import make
@@ -29,6 +53,7 @@ def make_curves(styles, names):
         curves.append(c)
 
     return curves
+
 
 def create_styled_curves(names):
     styles = generate_styles(len(names))

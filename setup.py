@@ -4,8 +4,8 @@ setup(
     name = 'pyqt-tools',
     packages = find_packages(),
     platform=['any'],
-    version = '0.0.1',
+    version = '0.0.2',
     author = 'David Roman',
     author_email = 'davidroman96@gmail.com',
-    url = 'https://mumei.space/david/pyqt-tools'
+    url = 'https://github.com/IFAEcontrol/pyqt-tools'
 )
