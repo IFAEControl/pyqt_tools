@@ -25,21 +25,17 @@ class Curve:
         self._c = c
 
     def keep_last(self, num):
-        x, y = show_last(num, self._c)
+        x, y = keep_last(num, self._c)
         self._c.set_data(x, y)
 
     def clear(self):
         self._c.set_data([], [])
 
-    def append(self, x_val, y_val, last=-1):
+    def append(self, x_val, y_val):
         x, y = self._c.get_data()
         x = np.append(x, x_val)
         y = np.append(y, y_val)
         self._c.set_data(x, y)
-
-        if last != -1:
-            x, y = show_last(last, self._c)
-            self._c.set_data(x, y)
 
 
 def generate_styles(num_curves):
