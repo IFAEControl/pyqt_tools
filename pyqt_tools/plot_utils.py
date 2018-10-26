@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import numpy as np
 
 from .plots import Plot
@@ -19,6 +21,20 @@ def keep_last(num, curve):
     return new_x, new_y
 
 
+class Axis:
+
+    def __init__(self, label, title):
+        self.label = label
+        self.unit = title
+
+
+class Axes:
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
 class Curve:
 
     def __init__(self, c):
@@ -36,6 +52,22 @@ class Curve:
         x = np.append(x, x_val)
         y = np.append(y, y_val)
         self._c.set_data(x, y)
+
+
+class CurveTime(Curve):
+
+    def __init__(self, c):
+        super(CurveTime, self).__init__(c)
+
+        self._start = datetime.now()
+
+    def clear(self):
+        super(CurveTime, self).clear()
+        self._start = datetime.now()
+
+    def append(self, y_val):
+        offset = (datetime.now() - self._start).total_seconds()
+        super(CurveTime, self).append(offset, y_val)
 
 
 def generate_styles(num_curves):
@@ -66,12 +98,12 @@ def add_curves_to_plot(plot, curves):
         plot.add(c)
 
 
-def build_plot(widget, title, ylabel, xlabel, yunit, xunit, curve_names, itemlist=False, toolbar=False):
+def build_plot(widget, title, x, y, curve_names, itemlist=False, toolbar=False, curve=Curve):
         curves = create_styled_curves(curve_names)
-        plot = Plot(widget, title, ylabel, xlabel, yunit, xunit, itemlist, toolbar )
+        plot = Plot(widget, title, y.label, x.label, y.unit, x.unit, itemlist, toolbar)
 
         add_curves_to_plot(plot, curves)
 
-        wrapped_curves = [Curve(c) for c in curves]
+        wrapped_curves = [curve(c) for c in curves]
 
         return plot, wrapped_curves
