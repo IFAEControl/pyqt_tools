@@ -3,7 +3,7 @@ import numpy as np
 from .plots import Plot
 
 
-def show_last(num, curve):
+def keep_last(num, curve):
     x, y = curve.get_data()
 
     if num >= len(y):
@@ -23,6 +23,13 @@ class Curve:
 
     def __init__(self, c):
         self._c = c
+
+    def keep_last(self, num):
+        x, y = show_last(num, self._c)
+        self._c.set_data(x, y)
+
+    def clear(self):
+        self._c.set_data([], [])
 
     def append(self, x_val, y_val, last=-1):
         x, y = self._c.get_data()
@@ -63,9 +70,9 @@ def add_curves_to_plot(plot, curves):
         plot.add(c)
 
 
-def build_plot(widget, title, ylabel, xlabel, yunit, xunit, curve_names):
+def build_plot(widget, title, ylabel, xlabel, yunit, xunit, curve_names, itemlist=False, toolbar=False):
         curves = create_styled_curves(curve_names)
-        plot = Plot(widget, title, ylabel, xlabel, yunit, xunit)
+        plot = Plot(widget, title, ylabel, xlabel, yunit, xunit, itemlist, toolbar )
 
         add_curves_to_plot(plot, curves)
 
