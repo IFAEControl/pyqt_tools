@@ -2,9 +2,8 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QSizePolicy
 from guiqwt.plot import CurveDialog
 
-def set_size_policy(widget, v_policy, h_policy):
-    policy = QSizePolicy(v_policy, h_policy)
-    widget.setSizePolicy(policy)
+from .utils import set_size_policy
+
 
 class Plot(QtWidgets.QWidget):
 
