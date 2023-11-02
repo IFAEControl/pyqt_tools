@@ -13,7 +13,7 @@ def show_message(text, title, icon, buttons=QMessageBox.Ok):
     msg = QMessageBox()
     msg.setIcon(icon)
 
-    msg.setText(text)
+    msg.setText(str(text))
     msg.setWindowTitle(title)
     msg.setStandardButtons(buttons)
 
